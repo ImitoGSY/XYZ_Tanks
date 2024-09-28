@@ -1,5 +1,4 @@
 ﻿using Microsoft.Extensions.DependencyInjection;
-using XYZ_Tanks;
 using XYZ_Tanks.Engine;
 using XYZ_Tanks.Input;
 using XYZ_Tanks.Map;

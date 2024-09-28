@@ -1,5 +1,4 @@
 ﻿namespace XYZ_Tanks.Input;
-using Microsoft.Extensions.DependencyInjection;
 
 public class InputEventArgs : EventArgs
 {

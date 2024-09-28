@@ -1,5 +1,4 @@
 ﻿namespace XYZ_Tanks.Engine;
-using Microsoft.Extensions.DependencyInjection;
 
 
 public struct Vector2Int : IEquatable<Vector2Int>
@@ -15,8 +14,8 @@ public struct Vector2Int : IEquatable<Vector2Int>
     public int X { get; set; }
     public int Y { get; set; }
 
-    public bool Equals(Vector2Int other) => other.X == X && other.Y == Y;
-    public override bool Equals(object? obj) => obj is Vector2Int vector && vector.Equals(this);
+    public readonly bool Equals(Vector2Int other) => other.X == X && other.Y == Y;
+    public override readonly bool Equals(object? obj) => obj is Vector2Int vector && vector.Equals(this);
 
     public static Vector2Int operator +(Vector2Int firstVector, Vector2Int secondVector)
         => new(firstVector.X + secondVector.X, firstVector.Y + secondVector.Y);
@@ -36,5 +35,5 @@ public struct Vector2Int : IEquatable<Vector2Int>
     public static Vector2Int Left => new(-1, 0);
     public static Vector2Int Zero => new(0, 0);
 
-    public override int GetHashCode() => base.GetHashCode();
+    public override readonly int GetHashCode() => base.GetHashCode();
 }

@@ -8,7 +8,7 @@ using Microsoft.Extensions.DependencyInjection;
 namespace XYZ_Tanks.Engine;
 internal class Game
 {
-    private readonly Random _random = new Random(DateTime.Now.Second);
+    private readonly Random _random = new(DateTime.Now.Second);
     private readonly IServiceProvider _serviceProvider;
     private readonly IInputReader _inputReader;
     private readonly IRenderer _renderer;

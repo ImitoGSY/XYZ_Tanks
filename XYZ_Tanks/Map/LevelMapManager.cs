@@ -7,17 +7,14 @@ using Microsoft.Extensions.DependencyInjection;
 namespace XYZ_Tanks.Map;
 public class LevelMapManager : ILevelMapManager
 {
-    private readonly Random _random = new Random(DateTime.Now.Second);
+    private readonly Random _random = new(DateTime.Now.Second);
     public const int LevelHeight = 13;
     public const int LevelWidth = 13;
-
-    private IList<IList<StaticObject>> _map;
-
-    private readonly List<EnemyTank> _enemyTanks = new();
-    private readonly List<Projectile> _projectiles = new();
+    private readonly List<EnemyTank> _enemyTanks = [];
+    private readonly List<Projectile> _projectiles = [];
     private readonly IServiceProvider _serviceProvider;
 
-    public IList<IList<StaticObject>> Map => _map;
+    public IList<IList<StaticObject>> Map { get; }
 
     public List<EnemyTank> EnemyTanks => _enemyTanks;
     public List<Projectile> Projectiles => _projectiles;
@@ -27,7 +24,7 @@ public class LevelMapManager : ILevelMapManager
     public LevelMapManager(IServiceProvider serviceProvider)
     {
         _serviceProvider = serviceProvider ?? throw new ArgumentNullException(nameof(serviceProvider));
-        _map = new List<IList<StaticObject>>(LevelHeight);
+        Map = new List<IList<StaticObject>>(LevelHeight);
 
         for (int i = 0; i < LevelHeight; i++)
         {
@@ -38,7 +35,7 @@ public class LevelMapManager : ILevelMapManager
                 row.Add(StaticObject.Empty);
             }
 
-            _map.Add(row);
+            Map.Add(row);
         }
     }
 
@@ -60,7 +57,7 @@ public class LevelMapManager : ILevelMapManager
 
     public void Set(int x, int y, StaticObject staticObject)
     {
-        _map[x][y] = staticObject;
+        Map[x][y] = staticObject;
     }
 
     public bool IsWalkableAtCoordinate(Vector2Int position) =>
@@ -68,7 +65,7 @@ public class LevelMapManager : ILevelMapManager
 
     public bool IsWalkableAtCoordinate(int x, int y) =>
         IsOnMap(x, y)
-        && _map[x][y] == StaticObject.Empty
+        && Map[x][y] == StaticObject.Empty
         && !_enemyTanks.Any(et => et.Transform.Position.X == x && et.Transform.Position.Y == y);
 
     private static bool IsOnMap(Vector2Int vector) =>
@@ -85,27 +82,27 @@ public class LevelMapManager : ILevelMapManager
 
     public bool IsProjectilePassable(int x, int y) =>
         IsOnMap(x, y)
-        && (_map[x][y] == StaticObject.Empty
-            || _map[x][y] == StaticObject.River);
+        && (Map[x][y] == StaticObject.Empty
+            || Map[x][y] == StaticObject.River);
 
     public bool IsDamageable(Vector2Int position) =>
         IsDamageable(position.X, position.Y);
 
     public bool IsDamageable(int x, int y) =>
         IsOnMap(x, y)
-        && (_map[x][y] == StaticObject.Wall
-            || _map[x][y] == StaticObject.DamagedWall);
+        && (Map[x][y] == StaticObject.Wall
+            || Map[x][y] == StaticObject.DamagedWall);
 
     public void Damage(Vector2Int position)
         => Damage(position.X, position.Y);
 
     public void Damage(int x, int y)
     {
-        if (_map[x][y] == StaticObject.Wall)
+        if (Map[x][y] == StaticObject.Wall)
         {
             Set(x, y, StaticObject.DamagedWall);
         }
-        else if (_map[x][y] == StaticObject.DamagedWall)
+        else if (Map[x][y] == StaticObject.DamagedWall)
         {
             Set(x, y, StaticObject.Empty);
         }

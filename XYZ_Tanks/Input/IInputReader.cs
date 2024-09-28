@@ -1,5 +1,4 @@
 ﻿namespace XYZ_Tanks.Input;
-using Microsoft.Extensions.DependencyInjection;
 
 internal interface IInputReader
 {

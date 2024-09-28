@@ -1,6 +1,4 @@
-﻿using System.Numerics;
-using XYZ_Tanks.Engine;
-using Microsoft.Extensions.DependencyInjection;
+﻿using XYZ_Tanks.Engine;
 
 
 namespace XYZ_Tanks.Rendering;

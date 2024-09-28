@@ -1,6 +1,5 @@
 ﻿using XYZ_Tanks.Engine;
 using XYZ_Tanks.Map;
-using Microsoft.Extensions.DependencyInjection;
 
 
 namespace XYZ_Tanks.Units;
@@ -34,8 +33,5 @@ public class Projectile : IUpdateable, IDisposable
         }
     }
 
-    public void Dispose()
-    {
-        _levelMapManager = null!;
-    }
+    public void Dispose() => _levelMapManager = null!;
 }

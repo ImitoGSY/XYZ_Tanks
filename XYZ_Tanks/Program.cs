@@ -1,11 +1,18 @@
-﻿using XYZ_Tanks;
-using XYZ_Tanks.Engine;
+﻿using XYZ_Tanks.Engine;
 using Microsoft.Extensions.DependencyInjection;
 
+namespace XYZ_Tanks
+{
+    public class Program
+    {
+        private static async Task Main(string[] args)
+        {
+            var serviceProvider = new ServiceCollection()
+                .AddGame().BuildServiceProvider();
 
-var serviceProvider = new ServiceCollection()
-    .AddGame()
-    .BuildServiceProvider();
 
-var game = serviceProvider.GetRequiredService<Game>();
-await game.RunAsync();
+            var game = serviceProvider.GetRequiredService<Game>();
+            await game.RunAsync();
+        }
+    }
+}
