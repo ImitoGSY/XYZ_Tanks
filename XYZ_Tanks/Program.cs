@@ -8,7 +8,8 @@ namespace XYZ_Tanks
         private static async Task Main(string[] args)
         {
             var serviceProvider = new ServiceCollection()
-                .AddGame().BuildServiceProvider();
+                .AddGame()
+                .BuildServiceProvider();
 
 
             var game = serviceProvider.GetRequiredService<Game>();
